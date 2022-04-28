@@ -1,0 +1,17 @@
+Options All -Indexes
+
+ErrorDocument 404 /Prestamos/404.html
+#ErrorDocument 403 /Prestamos/403.html
+ErrorDocument 500 /Prestamos/500.html
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+RewriteRule ^([^\.]+)$ $1.html [NC,L]
+
+
+
+
+
+
+
