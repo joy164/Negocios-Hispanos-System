@@ -297,13 +297,13 @@
                 <div class="card shadow-sm border-0">
                   <div class="card-body">
                       <?php if($datosPrestario["numContrato"] == 0):?>
-                        <h5 class="mb-0">Borrower #<?=$datosPrestario["id_prestario"]?></h5>
+                        <h5 class="mb-0">Pre-Borrower #<?=$datosPrestario["id_prestario"]?></h5>
                       <?php else:?>
                         <h5 class="mb-0">Borrower #<?=$datosPrestario["numContrato"]?></h5>
                       <?php endif;?>                        
                       <hr>
                       <div class="col-20 col-lg-12 text-md-end">
-                            <a href="regPrestamos" class="btn btn-sm btn-primary"> <i class="lni lni-angle-double-left"></i> Return</a>
+                            <a href="detalleBorrower?id_prestario=<?=$datosPrestario["id_prestario"]?>" class="btn btn-sm btn-primary"> <i class="lni lni-angle-double-left"></i> Return</a>
                       </div>
                       <br>
                       <div class="card shadow-none border">

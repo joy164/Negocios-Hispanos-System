@@ -43,20 +43,30 @@
   <link href="assets/css/icons.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-
   <!-- loader-->
 	<link href="assets/css/pace.min.css" rel="stylesheet" />
-
-
   <!--Theme Styles-->
   <link href="assets/css/dark-theme.css" rel="stylesheet" />
   <link href="assets/css/semi-dark.css" rel="stylesheet" />
   <link href="assets/css/header-colors.css" rel="stylesheet" />
+  <!--Sweet Alert 2-->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="assets\js\alerts.js"></script>
 
-  <title>Profile</title>
+  <title>Vehicle Details</title>
 </head>
 
 <body>
+<?php  
+    if(isset($_REQUEST['Actualizado'])){
+      $resultado = $_REQUEST['Actualizado'];
+      if(strcmp($resultado, "True") == 0){
+        echo"<script>CorrUpdateItem();</script>";
+      }else{
+        echo"<script>IncoUpdateItem();</script>";
+      }
+    }
+?>
 <!--start wrapper-->
 <div class="wrapper">
     <!--start top header-->
@@ -304,56 +314,61 @@
                 <div class="card shadow-sm border-0">
                   <div class="card-body">
                       <?php if($datosPrestario["numContrato"] == 0):?>
-                        <h5 class="mb-0">Vehicle of Borrower #<?=$datosPrestario["id_prestario"]?></h5>
+                        <h5 class="mb-0">Vehicle of Pre-Borrower #<?=$datosPrestario["id_prestario"]?></h5>
                       <?php else:?>
                         <h5 class="mb-0">Vehicle of Borrower #<?=$datosPrestario["numContrato"]?></h5>
                       <?php endif;?>                        
                       <hr>
                       <div class="col-20 col-lg-12 text-md-end">    
-                        <a href="detalleBorrower?id_prestario=<?=$datosPrestario['id_prestario']?>" class="btn btn-sm btn-info"> <i class="lni lni-angle-double-left"></i> Return</a>
+                        <a href="detalleBorrower?id_prestario=<?=$datosPrestario['id_prestario']?>" class="btn btn-sm btn-primary"> <i class="lni lni-angle-double-left"></i> Return</a>
                       </div>
                       <br>
-                    <div class="card shadow-none border">
-                        <div class="card-header">
-                          <h6 class="mb-0">Information of Vehicle</h6>
-                        </div>
-                        <div class="card-body">
-                          <div class="row g-3">
-                            <div class="col-6">
-                                <label class="form-label">Year</label>
-                                <input type="text" class="form-control" value="<?=$datosAuto["year"]?>" readonly>
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label">Model</label>
-                                <input type="text" class="form-control" value="<?=$datosAuto["model"]?>" readonly>
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label">Odometer</label>
-                                <input type="text" class="form-control" value="<?=$datosAuto["odometer"]?>" readonly>
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label">Transmission</label>
-                                <input type="text" class="form-control" value="<?=$datosAuto["transmission"]?>" readonly>
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label">Make</label>
-                                <input type="text" class="form-control" value="<?=$datosAuto["make"]?>" readonly>
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label">Color</label>
-                                <input type="text" class="form-control" value="<?=$datosAuto["color"]?>" readonly>
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label">VIN</label>
-                                <input type="text" class="form-control" value="<?=$datosAuto["VIN"]?>" readonly>
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label">License Number</label>
-                                <input type="text" class="form-control" value="<?=$datosAuto["LicenseNo"]?>" readonly>
-                            </div>
-                        </div>
-                    </div>   
-                  </div>
+                    <form action="controlador/editVehicle?id_prestario=<?=$datosPrestario['id_prestario']?>" method="post">
+                      <div class="card shadow-none border">
+                          <div class="card-header">
+                            <h6 class="mb-0">Information of Vehicle</h6>
+                          </div>
+                          <div class="card-body">
+                            <div class="row g-3">
+                              <div class="col-6">
+                                  <label class="form-label">Year</label>
+                                  <input name="year" type="text" class="form-control" value="<?=$datosAuto["year"]?>" >
+                              </div>
+                              <div class="col-6">
+                                  <label class="form-label">Model</label>
+                                  <input name="model" type="text" class="form-control" value="<?=$datosAuto["model"]?>" >
+                              </div>
+                              <div class="col-6">
+                                  <label class="form-label">Odometer</label>
+                                  <input name="odometer" type="text" class="form-control" value="<?=$datosAuto["odometer"]?>" >
+                              </div>
+                              <div class="col-6">
+                                  <label class="form-label">Transmission</label>
+                                  <input name="transmision" type="text" class="form-control" value="<?=$datosAuto["transmission"]?>" >
+                              </div>
+                              <div class="col-6">
+                                  <label class="form-label">Make</label>
+                                  <input name="make" type="text" class="form-control" value="<?=$datosAuto["make"]?>" >
+                              </div>
+                              <div class="col-6">
+                                  <label class="form-label">Color</label>
+                                  <input name="color" type="text" class="form-control" value="<?=$datosAuto["color"]?>" >
+                              </div>
+                              <div class="col-6">
+                                  <label class="form-label">VIN</label>
+                                  <input name="vin" type="text" class="form-control" value="<?=$datosAuto["VIN"]?>" >
+                              </div>
+                              <div class="col-6">
+                                  <label class="form-label">License Number</label>
+                                  <input name="licencia" type="text" class="form-control" value="<?=$datosAuto["LicenseNo"]?>" >
+                              </div>
+                          </div>
+                        </div>   
+                      </div>
+                      <div class="col-20 col-lg-12 text-md-end">
+                        <button name ="enviar" type="submit" class="btn btn-danger" title="Save changes"><i class="lni lni-save"> Save changes</i></button>
+                      </div>
+                    </form> 
                 </div>
               </div>
             </div>

@@ -36,20 +36,30 @@
   <link href="assets/css/icons.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-
   <!-- loader-->
 	<link href="assets/css/pace.min.css" rel="stylesheet" />
-
-
   <!--Theme Styles-->
   <link href="assets/css/dark-theme.css" rel="stylesheet" />
   <link href="assets/css/semi-dark.css" rel="stylesheet" />
   <link href="assets/css/header-colors.css" rel="stylesheet" />
+  <!--Sweet Alert 2-->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="assets\js\alerts.js"></script>
 
-  <title>Profile</title>
+  <title>Borrower Details</title>
 </head>
 
 <body>
+<?php  
+    if(isset($_REQUEST['Actualizado'])){
+      $resultado = $_REQUEST['Actualizado'];
+      if(strcmp($resultado, "True") == 0){
+        echo"<script>CorrUpdateItem();</script>";
+      }else{
+        echo"<script>IncoUpdateItem();</script>";
+      }
+    }
+?>
 <!--start wrapper-->
 <div class="wrapper">
     <!--start top header-->
@@ -297,7 +307,7 @@
                 <div class="card shadow-sm border-0">
                   <div class="card-body">
                       <?php if($datosPrestario["numContrato"] == 0):?>
-                        <h5 class="mb-0">Borrower #<?=$datosPrestario["id_prestario"]?></h5>
+                        <h5 class="mb-0">Pre-Borrower #<?=$datosPrestario["id_prestario"]?></h5>
                       <?php else:?>
                         <h5 class="mb-0">Borrower #<?=$datosPrestario["numContrato"]?></h5>
                       <?php endif;?>                        
@@ -308,138 +318,143 @@
                             <a href="detalleVehicle?id_prestario=<?=$datosPrestario['id_prestario']?>" class="btn btn-sm btn-secondary">Vehicle Description<i class="lni lni-car"></i></a>
                             <a href="detalleCoBorrower?id_prestario=<?=$datosPrestario["id_prestario"]?>" class="btn btn-sm btn-secondary">Co-Borrower Details<i class="bi bi-person-fill"></i></a>
                             <a href="detalleCoSigner?id_prestario=<?=$datosPrestario["id_prestario"]?>" class="btn btn-sm btn-secondary">Co-Signer Details<i class="bi bi-person-fill"></i></i></a>
-                            <a href="regPrestamos" class="btn btn-sm btn-info"> <i class="lni lni-angle-double-left"></i> Return</a>
+                            <a href="regPrestamos" class="btn btn-sm btn-primary"> <i class="lni lni-angle-double-left"></i> Return</a>
                           <?php else:?>                          
                             <a href="controlador/gen_Contrato.php?id_prestario=<?=$datosPrestario["id_prestario"]?>" class="btn btn-sm btn-danger me-2">See Contract <i class="bi bi-file-earmark-pdf-fill"></i></a>
                             <a href="detalleVehicle?id_prestario=<?=$datosPrestario['id_prestario']?>" class="btn btn-sm btn-secondary">Vehicle Description<i class="lni lni-car"></i></a>
                             <a href="detalleCoBorrower?id_prestario=<?=$datosPrestario["id_prestario"]?>" class="btn btn-sm btn-secondary">Co-Borrower Details<i class="bi bi-person-fill"></i></a>
                             <a href="detalleCoSigner?id_prestario=<?=$datosPrestario["id_prestario"]?>" class="btn btn-sm btn-secondary">Co-Signer Details<i class="bi bi-person-fill"></i></a>
-                            <a href="regPrestamos" class="btn btn-sm btn-info"> <i class="lni lni-angle-double-left"></i> Return</a>
+                            <a href="regPrestamos" class="btn btn-sm btn-primary"> <i class="lni lni-angle-double-left"></i> Return</a>
                           <?php endif;?>                          
                       </div>
                       <br>
-                      <div class="card shadow-none border">
-                        <div class="card-header">
-                          <h6 class="mb-0">Information of Borrower</h6>
+                      <form action="controlador/editBorrower?id_prestario=<?=$datosPrestario['id_prestario']?>" method="post">
+                        <div class="card shadow-none border">
+                          <div class="card-header">
+                            <h6 class="mb-0">Information of Borrower</h6>
+                          </div>
+                          <div class="card-body">
+                            <div class="row g-3">
+                              <div class="col-3">
+                                  <label class="form-label">Name</label>
+                                  <input name="name" type="text" class="form-control" value="<?=$datosPrestario["name"]?>" >
+                              </div>
+                              <div class="col-3">
+                                  <label class="form-label">MidName</label>
+                                  <input name="midName" type="text" class="form-control" value="<?=$datosPrestario["midName"]?>" >
+                              </div>
+                              <div class="col-3">
+                                  <label class="form-label">Last Name</label>
+                                  <input name="lastName" type="text" class="form-control" value="<?=$datosPrestario["lastName"]?>" >
+                              </div>
+                              <div class="col-3">
+                                  <label class="form-label">Date of Birth</label>
+                                  <input name="DOF" type="date" class="form-control" value="<?=$datosPrestario["nacimiento"]?>" >
+                              </div>
+                          </div>
+                          </div>
                         </div>
-                        <div class="card-body">
-                          <div class="row g-3">
-                            <div class="col-3">
-                                <label class="form-label">Name</label>
-                                <input type="text" class="form-control" value="<?=$datosPrestario["name"]?>" readonly>
-                            </div>
-                            <div class="col-3">
-                                <label class="form-label">MidName</label>
-                                <input type="text" class="form-control" value="<?=$datosPrestario["midName"]?>" readonly>
-                            </div>
-                            <div class="col-3">
-                                <label class="form-label">Last Name</label>
-                                <input type="text" class="form-control" value="<?=$datosPrestario["lastName"]?>" readonly>
-                            </div>
-                            <div class="col-3">
-                                <label class="form-label">Date of Birth</label>
-                                <input type="text" class="form-control" value="<?=$datosPrestario["nacimiento"]?>" readonly>
-                            </div>
-                        </div>
-                        </div>
-                      </div>
                       
-                      <div class="card shadow-none border">
-                        <div class="card-header">
-                          <h6 class="mb-0">Address</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class ="row g-3">
-                                <div class="col-6">
-                                    <label class="form-label">Addrress</label>
-                                    <input type="text" class="form-control" value="<?=$datosPrestario["address"]?>" readonly>
-                                </div>
-                                <div class="col-2">
-                                    <label class="form-label">City</label>
-                                    <input type="text" class="form-control" value="<?=$datosPrestario["city"]?>" readonly>
-                                </div>
-                                <div class="col-1">
-                                    <label class="form-label">State</label>
-                                    <input type="text" class="form-control" value="<?=$datosPrestario["state"]?>" readonly>
-                                </div>                                
-                                <div class="col-2">
-                                    <label class="form-label">ZIP</label>
-                                    <input type="text" class="form-control" value="<?=$datosPrestario["ZIP"]?>" readonly>
-                                </div>                                                                
-                            </div>
-                        </div>
-                      </div>
-
-                      <div class="card shadow-none border">
-
-                        <div class="card-header">
-                          <h6 class="mb-0">Contact</h6>
-                        </div>
-                        
-                        <div class="card-body">
-                            <div class ="row g-3">
-                                <div class = col-4>
-                                    <label class="form-label">Email</label>
-                                    <input type="text" class="form-control" value="<?=$datosPrestario["email"]?>" readonly>
-                                </div>
-                                <div class="col-2">
-                                  <label class="form-label">Home Phone</label>
-                                  <input type="text" class="form-control" value="<?=$datosPrestario["homePh"]?>" readonly>
+                        <div class="card shadow-none border">
+                          <div class="card-header">
+                            <h6 class="mb-0">Address</h6>
+                          </div>
+                          <div class="card-body">
+                              <div class ="row g-3">
+                                  <div class="col-6">
+                                      <label class="form-label">Addrress</label>
+                                      <input name="address" type="text" class="form-control" value="<?=$datosPrestario["address"]?>" >
+                                  </div>
+                                  <div class="col-2">
+                                      <label class="form-label">City</label>
+                                      <input name="city" type="text" class="form-control" value="<?=$datosPrestario["city"]?>" >
+                                  </div>
+                                  <div class="col-1">
+                                      <label class="form-label">State</label>
+                                      <input name="state" type="text" class="form-control" value="<?=$datosPrestario["state"]?>" readonly>
+                                  </div>                                
+                                  <div class="col-2">
+                                      <label class="form-label">ZIP</label>
+                                      <input name="zip" type="text" class="form-control" value="<?=$datosPrestario["ZIP"]?>" >
+                                  </div>                                                                
                               </div>
-                              <div class="col-2">
-                                  <label class="form-label">Cell Phone</label>
-                                  <input type="text" class="form-control" value="<?=$datosPrestario["cellPh"]?>" readonly>
+                          </div>
+                        </div>
+
+                        <div class="card shadow-none border">
+
+                          <div class="card-header">
+                            <h6 class="mb-0">Contact</h6>
+                          </div>
+                          
+                          <div class="card-body">
+                              <div class ="row g-3">
+                                  <div class = col-4>
+                                      <label class="form-label">Email</label>
+                                      <input name="email" type="text" class="form-control" value="<?=$datosPrestario["email"]?>" >
+                                  </div>
+                                  <div class="col-2">
+                                    <label class="form-label">Home Phone</label>
+                                    <input name="homePh" type="text" class="form-control" value="<?=$datosPrestario["homePh"]?>" >
+                                </div>
+                                <div class="col-2">
+                                    <label class="form-label">Cell Phone</label>
+                                    <input name="cellPh" type="text" class="form-control" value="<?=$datosPrestario["cellPh"]?>" >
+                                </div>
                               </div>
-                            </div>
+                          </div>
                         </div>
-                      </div>
 
-                      <div class="card shadow-none border">
-                        <div class="card-header">
-                          <h6 class="mb-0">Employer</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class ="row g-3">
-                                <div class="col-2">
-                                    <label class="form-label">NSS</label>
-                                    <input type="text" class="form-control" value="<?=$datosPrestario["NSS"]?>" readonly>
-                                </div>
-                                <div class="col-2">
-                                    <label class="form-label">Employer</label>
-                                    <input type="text" class="form-control" value="<?=$datosPrestario["empleo"]?>" readonly>
-                                </div>
-                                <div class="col-2">
-                                    <label class="form-label">Possition</label>
-                                    <input type="text" class="form-control" value="<?=$datosPrestario["ePossition"]?>" readonly>
-                                </div>       
-                                <div class="col-5">
-                                    <label class="form-label">Address</label>
-                                    <input type="text" class="form-control" value="<?=$datosPrestario["eAddress"]?>" readonly>
-                                </div>                             
-                                <div class="col-3">
-                                    <label class="form-label">City</label>
-                                    <input type="text" class="form-control" value="<?=$datosPrestario["eCity"]?>" readonly>
-                                </div>     
-                                <div class="col-1">
-                                    <label class="form-label">State</label>
-                                    <input type="text" class="form-control" value="<?=$datosPrestario["eState"]?>" readonly>
-                                </div>   
+                        <div class="card shadow-none border">
+                          <div class="card-header">
+                            <h6 class="mb-0">Employer</h6>
+                          </div>
+                          <div class="card-body">
+                              <div class ="row g-3">
+                                  <div class="col-2">
+                                      <label class="form-label">NSS</label>
+                                      <input name="NSS" type="text" class="form-control" value="<?=$datosPrestario["NSS"]?>" >
+                                  </div>
+                                  <div class="col-2">
+                                      <label class="form-label">Employer</label>
+                                      <input name="empleo" type="text" class="form-control" value="<?=$datosPrestario["empleo"]?>" >
+                                  </div>
+                                  <div class="col-2">
+                                      <label class="form-label">Possition</label>
+                                      <input type="text" class="form-control" value="<?=$datosPrestario["ePossition"]?>" >
+                                  </div>       
+                                  <div class="col-5">
+                                      <label class="form-label">Address</label>
+                                      <input name="eDireccion" type="text" class="form-control" value="<?=$datosPrestario["eAddress"]?>" >
+                                  </div>                             
+                                  <div class="col-3">
+                                      <label class="form-label">City</label>
+                                      <input name="eCiudad" type="text" class="form-control" value="<?=$datosPrestario["eCity"]?>" >
+                                  </div>     
+                                  <div class="col-1">
+                                      <label class="form-label">State</label>
+                                      <input name="eState" type="text" class="form-control" value="<?=$datosPrestario["eState"]?>" readonly>
+                                  </div>   
 
-                                <div class="col-2">
-                                    <label class="form-label">ZIP</label>
-                                    <input type="text" class="form-control" value="<?=$datosPrestario["eZIP"]?>" readonly>
-                                </div>     
-                                <div class="col-3">
-                                    <label class="form-label">Phone</label>
-                                    <input type="text" class="form-control" value="<?=$datosPrestario["ePh"]?>" readonly>
-                                </div>     
-                                <div class="col-1">
-                                    <label class="form-label">Ext</label>
-                                    <input type="text" class="form-control" value="<?=$datosPrestario["eExt"]?>" readonly>
-                                </div>                                                                                                                                
-                            </div>
+                                  <div class="col-2">
+                                      <label class="form-label">ZIP</label>
+                                      <input name="eZIP" type="text" class="form-control" value="<?=$datosPrestario["eZIP"]?>" >
+                                  </div>     
+                                  <div class="col-3">
+                                      <label class="form-label">Phone</label>
+                                      <input name="eOffPh" type="text" class="form-control" value="<?=$datosPrestario["ePh"]?>" >
+                                  </div>     
+                                  <div class="col-1">
+                                      <label class="form-label">Ext</label>
+                                      <input name="eExt" type="text" class="form-control" value="<?=$datosPrestario["eExt"]?>" >
+                                  </div>                                                                                                                                
+                              </div>
+                          </div>
+                        </div> 
+                        <div class="col-20 col-lg-12 text-md-end">
+                          <button name ="enviar" type="submit" class="btn btn-danger" title="Save changes"><i class="lni lni-save"> Save changes</i></button>
                         </div>
-                      </div>                      
+                      </form>                                      
                   </div>
                 </div>
               </div>

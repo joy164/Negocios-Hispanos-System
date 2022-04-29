@@ -299,7 +299,7 @@
             <div class="card">
               <div class="card-body">
                 <div class="border p-3 rounded">
-                <h6 class="mb-0 text-uppercase">Edit Dealer "<?= $datosPerfil['name']. " " .$datosPerfil['lastName']?>"</h6>
+                <h6 class="mb-0 text-uppercase">Edit User "<?= $datosPerfil['name']. " " .$datosPerfil['lastName']?>"</h6>
                  <hr/>
 
                  <form class="row g-3" method="post" action="controlador/edit_user?id=<?=$_REQUEST['id']?>" >

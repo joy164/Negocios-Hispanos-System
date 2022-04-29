@@ -343,7 +343,6 @@
                           <td><?=$producto["email"]?></td>
                           <td>
                              <div class="table-actions d-flex align-items-center gap-3 fs-6">
-                               <a href="editarContr?id_Contrato=<?=$producto["id_prestario"]?>" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i class="bi bi-pencil-fill"></i></a>
                                <a href="javascript:AlertaEliminarItem('<?=$producto["id_prestario"]?>', 'del_contrato');" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"><i class="bi bi-trash-fill"></i></a>
                                <a href="detalleBorrower?id_prestario=<?=$producto["id_prestario"]?>" class="text-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Borrower Details"><i class="lni lni-more-alt"></i></a>
                                

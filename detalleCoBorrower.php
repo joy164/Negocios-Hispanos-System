@@ -43,20 +43,30 @@
   <link href="assets/css/icons.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-
   <!-- loader-->
 	<link href="assets/css/pace.min.css" rel="stylesheet" />
-
-
   <!--Theme Styles-->
   <link href="assets/css/dark-theme.css" rel="stylesheet" />
   <link href="assets/css/semi-dark.css" rel="stylesheet" />
   <link href="assets/css/header-colors.css" rel="stylesheet" />
+  <!--Sweet Alert 2-->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="assets\js\alerts.js"></script>
 
-  <title>Profile</title>
+  <title>Co-Borrower Details</title>
 </head>
 
 <body>
+<?php  
+    if(isset($_REQUEST['Actualizado'])){
+      $resultado = $_REQUEST['Actualizado'];
+      if(strcmp($resultado, "True") == 0){
+        echo"<script>CorrUpdateItem();</script>";
+      }else{
+        echo"<script>IncoUpdateItem();</script>";
+      }
+    }
+?>
 <!--start wrapper-->
 <div class="wrapper">
     <!--start top header-->
@@ -304,138 +314,143 @@
                 <div class="card shadow-sm border-0">
                   <div class="card-body">
                       <?php if($datosPrestario["numContrato"] == 0):?>
-                        <h5 class="mb-0">Co-Borrower of Borrower #<?=$datosPrestario["id_prestario"]?></h5>
+                        <h5 class="mb-0">Co-Borrower of Pre-Borrower #<?=$datosPrestario["id_prestario"]?></h5>
                       <?php else:?>
                         <h5 class="mb-0">Co-Borrower of Borrower #<?=$datosPrestario["numContrato"]?></h5>
                       <?php endif;?>                        
                       <hr>
                       <div class="col-20 col-lg-12 text-md-end">
-                        <a href="detalleBorrower?id_prestario=<?=$datosPrestario['id_prestario']?>" class="btn btn-sm btn-info"> <i class="lni lni-angle-double-left"></i> Return</a>
+                        <a href="detalleBorrower?id_prestario=<?=$datosPrestario['id_prestario']?>" class="btn btn-sm btn-primary"> <i class="lni lni-angle-double-left"></i> Return</a>
                       </div>
                       <br>
                       <?php if($datosPrestario['id_CoBorrower'] != 0):?>
-                      <div class="card shadow-none border">
-                        <div class="card-header">
-                          <h6 class="mb-0">Information of Borrower</h6>
-                        </div>
-                        <div class="card-body">
-                          <div class="row g-3">
-                            <div class="col-3">
-                                <label class="form-label">Name</label>
-                                <input type="text" class="form-control" value="<?=$datosCoBorrower["name"]?>" readonly>
-                            </div>
-                            <div class="col-3">
-                                <label class="form-label">MidName</label>
-                                <input type="text" class="form-control" value="<?=$datosCoBorrower["midName"]?>" readonly>
-                            </div>
-                            <div class="col-3">
-                                <label class="form-label">Last Name</label>
-                                <input type="text" class="form-control" value="<?=$datosCoBorrower["lastName"]?>" readonly>
-                            </div>
-                            <div class="col-3">
-                                <label class="form-label">Date of Birth</label>
-                                <input type="text" class="form-control" value="<?=$datosCoBorrower["nacimiento"]?>" readonly>
-                            </div>
-                        </div>
-                        </div>
-                      </div>
-                      
-                      <div class="card shadow-none border">
-                        <div class="card-header">
-                          <h6 class="mb-0">Address</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class ="row g-3">
-                                <div class="col-6">
-                                    <label class="form-label">Addrress</label>
-                                    <input type="text" class="form-control" value="<?=$datosCoBorrower["address"]?>" readonly>
-                                </div>
-                                <div class="col-2">
-                                    <label class="form-label">City</label>
-                                    <input type="text" class="form-control" value="<?=$datosCoBorrower["city"]?>" readonly>
-                                </div>
-                                <div class="col-1">
-                                    <label class="form-label">State</label>
-                                    <input type="text" class="form-control" value="<?=$datosCoBorrower["state"]?>" readonly>
-                                </div>                                
-                                <div class="col-2">
-                                    <label class="form-label">ZIP</label>
-                                    <input type="text" class="form-control" value="<?=$datosCoBorrower["ZIP"]?>" readonly>
-                                </div>                                                                
-                            </div>
-                        </div>
-                      </div>
-
-                      <div class="card shadow-none border">
-
-                        <div class="card-header">
-                          <h6 class="mb-0">Contact</h6>
+                      <form action="controlador/editCoBorrower?id_prestario=<?=$datosPrestario['id_prestario']?>" method="post">
+                        <div class="card shadow-none border">
+                          <div class="card-header">
+                            <h6 class="mb-0">Information of Co-Borrower</h6>
+                          </div>
+                          <div class="card-body">
+                            <div class="row g-3">
+                              <div class="col-3">
+                                  <label class="form-label">Name</label>
+                                  <input name="name" type="text" class="form-control" value="<?=$datosCoBorrower["name"]?>" >
+                              </div>
+                              <div class="col-3">
+                                  <label class="form-label">MidName</label>
+                                  <input name="midName" type="text" class="form-control" value="<?=$datosCoBorrower["midName"]?>" >
+                              </div>
+                              <div class="col-3">
+                                  <label class="form-label">Last Name</label>
+                                  <input name="lastName" type="text" class="form-control" value="<?=$datosCoBorrower["lastName"]?>" >
+                              </div>
+                              <div class="col-3">
+                                  <label class="form-label">Date of Birth</label>
+                                  <input name="DOF" type="date" class="form-control" value="<?=$datosCoBorrower["nacimiento"]?>" >
+                              </div>
+                          </div>
+                          </div>
                         </div>
                         
-                        <div class="card-body">
-                            <div class ="row g-3">
-                                <div class = col-4>
-                                    <label class="form-label">Email</label>
-                                    <input type="text" class="form-control" value="<?=$datosCoBorrower["email"]?>" readonly>
-                                </div>
-                                <div class="col-2">
-                                  <label class="form-label">Home Phone</label>
-                                  <input type="text" class="form-control" value="<?=$datosCoBorrower["homePh"]?>" readonly>
+                        <div class="card shadow-none border">
+                          <div class="card-header">
+                            <h6 class="mb-0">Address</h6>
+                          </div>
+                          <div class="card-body">
+                              <div class ="row g-3">
+                                  <div class="col-6">
+                                      <label class="form-label">Addrress</label>
+                                      <input name="address" type="text" class="form-control" value="<?=$datosCoBorrower["address"]?>" >
+                                  </div>
+                                  <div class="col-2">
+                                      <label class="form-label">City</label>
+                                      <input name="city" type="text" class="form-control" value="<?=$datosCoBorrower["city"]?>" >
+                                  </div>
+                                  <div class="col-1">
+                                      <label class="form-label">State</label>
+                                      <input name="state" type="text" class="form-control" value="<?=$datosCoBorrower["state"]?>" readonly>
+                                  </div>                                
+                                  <div class="col-2">
+                                      <label class="form-label">ZIP</label>
+                                      <input name="zip" type="text" class="form-control" value="<?=$datosCoBorrower["ZIP"]?>" >
+                                  </div>                                                                
                               </div>
-                              <div class="col-2">
-                                  <label class="form-label">Cell Phone</label>
-                                  <input type="text" class="form-control" value="<?=$datosCoBorrower["cellPh"]?>" readonly>
+                          </div>
+                        </div>
+
+                        <div class="card shadow-none border">
+
+                          <div class="card-header">
+                            <h6 class="mb-0">Contact</h6>
+                          </div>
+                          
+                          <div class="card-body">
+                              <div class ="row g-3">
+                                  <div class = col-4>
+                                      <label class="form-label">Email</label>
+                                      <input name="email" type="text" class="form-control" value="<?=$datosCoBorrower["email"]?>" >
+                                  </div>
+                                  <div class="col-2">
+                                    <label class="form-label">Home Phone</label>
+                                    <input name="homePh" type="text" class="form-control" value="<?=$datosCoBorrower["homePh"]?>" >
+                                </div>
+                                <div class="col-2">
+                                    <label class="form-label">Cell Phone</label>
+                                    <input name="cellPh" type="text" class="form-control" value="<?=$datosCoBorrower["cellPh"]?>" >
+                                </div>
                               </div>
-                            </div>
+                          </div>
                         </div>
-                      </div>
 
-                      <div class="card shadow-none border">
-                        <div class="card-header">
-                          <h6 class="mb-0">Employer</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class ="row g-3">
-                                <div class="col-2">
-                                    <label class="form-label">NSS</label>
-                                    <input type="text" class="form-control" value="<?=$datosCoBorrower["NSS"]?>" readonly>
-                                </div>
-                                <div class="col-2">
-                                    <label class="form-label">Employer</label>
-                                    <input type="text" class="form-control" value="<?=$datosCoBorrower["empleo"]?>" readonly>
-                                </div>
-                                <div class="col-2">
-                                    <label class="form-label">Possition</label>
-                                    <input type="text" class="form-control" value="<?=$datosCoBorrower["ePossition"]?>" readonly>
-                                </div>       
-                                <div class="col-5">
-                                    <label class="form-label">Address</label>
-                                    <input type="text" class="form-control" value="<?=$datosCoBorrower["eAddress"]?>" readonly>
-                                </div>                             
-                                <div class="col-3">
-                                    <label class="form-label">City</label>
-                                    <input type="text" class="form-control" value="<?=$datosCoBorrower["eCity"]?>" readonly>
-                                </div>     
-                                <div class="col-1">
-                                    <label class="form-label">State</label>
-                                    <input type="text" class="form-control" value="<?=$datosCoBorrower["eState"]?>" readonly>
-                                </div>   
+                        <div class="card shadow-none border">
+                          <div class="card-header">
+                            <h6 class="mb-0">Employer</h6>
+                          </div>
+                          <div class="card-body">
+                              <div class ="row g-3">
+                                  <div class="col-2">
+                                      <label class="form-label">NSS</label>
+                                      <input name="NSS" type="text" class="form-control" value="<?=$datosCoBorrower["NSS"]?>" >
+                                  </div>
+                                  <div class="col-2">
+                                      <label class="form-label">Employer</label>
+                                      <input name="empleo" type="text" class="form-control" value="<?=$datosCoBorrower["empleo"]?>" >
+                                  </div>
+                                  <div class="col-2">
+                                      <label class="form-label">Possition</label>
+                                      <input name="posicion" type="text" class="form-control" value="<?=$datosCoBorrower["ePossition"]?>" >
+                                  </div>       
+                                  <div class="col-5">
+                                      <label class="form-label">Address</label>
+                                      <input name="eDireccion" type="text" class="form-control" value="<?=$datosCoBorrower["eAddress"]?>" >
+                                  </div>                             
+                                  <div class="col-3">
+                                      <label class="form-label">City</label>
+                                      <input name="eCiudad" type="text" class="form-control" value="<?=$datosCoBorrower["eCity"]?>" >
+                                  </div>     
+                                  <div class="col-1">
+                                      <label class="form-label">State</label>
+                                      <input name="eState" type="text" class="form-control" value="<?=$datosCoBorrower["eState"]?>" readonly>
+                                  </div>   
 
-                                <div class="col-2">
-                                    <label class="form-label">ZIP</label>
-                                    <input type="text" class="form-control" value="<?=$datosCoBorrower["eZIP"]?>" readonly>
-                                </div>     
-                                <div class="col-3">
-                                    <label class="form-label">Phone</label>
-                                    <input type="text" class="form-control" value="<?=$datosCoBorrower["ePh"]?>" readonly>
-                                </div>     
-                                <div class="col-1">
-                                    <label class="form-label">Ext</label>
-                                    <input type="text" class="form-control" value="<?=$datosCoBorrower["eExt"]?>" readonly>
-                                </div>                                                                                                                                
-                            </div>
+                                  <div class="col-2">
+                                      <label class="form-label">ZIP</label>
+                                      <input name="eZIP" type="text" class="form-control" value="<?=$datosCoBorrower["eZIP"]?>" >
+                                  </div>     
+                                  <div class="col-3">
+                                      <label class="form-label">Phone</label>
+                                      <input name="eOffPh" type="text" class="form-control" value="<?=$datosCoBorrower["ePh"]?>" >
+                                  </div>     
+                                  <div class="col-1">
+                                      <label class="form-label">Ext</label>
+                                      <input name="eExt" type="text" class="form-control" value="<?=$datosCoBorrower["eExt"]?>" >
+                                  </div>                                                                                                                                
+                              </div>
+                          </div>
+                        </div> 
+                        <div class="col-20 col-lg-12 text-md-end">
+                          <button name ="enviar" type="submit" class="btn btn-danger" title="Save changes"><i class="lni lni-save"> Save changes</i></button>
                         </div>
-                      </div> 
+                      </form>
                       <?php else:?>
                         <div class="card shadow-none border">
                             <div class="card-header">
@@ -446,8 +461,11 @@
                                     <div class="col-3">
                                         <label class="form-label">No Co-Borrower registered</label>
                                     </div>
-                                </div>
+                                </div>                                
                             </div>
+                        </div>
+                        <div class="col-20 col-lg-12 text-md-start">
+                          <a href="regCoBorrower?Signer=False&id_prestario=<?=$id_contrato?>" class="btn btn-sm btn-warning">Add New Co-Borrower</a>
                         </div>
                       <?php endif;?>                     
                   </div>
