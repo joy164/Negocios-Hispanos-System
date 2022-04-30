@@ -278,7 +278,7 @@
 							<ol class="breadcrumb mb-0 p-0">
 								<li class="breadcrumb-item"><a href="init"><i class="bx bx-home-alt"></i></a>
 								</li>
-								<li class="breadcrumb-item active" aria-current="page">Welcome <?= $_SESSION["correo"]?></li>
+								<li class="breadcrumb-item active" aria-current="page">Welcome <?= $_SESSION["name"]?></li>
 							</ol>
 						</nav>
 					</div>
@@ -302,7 +302,7 @@
 								<div id="todo-container">
                   <h5>This is the first stage of system's development</h5>
                   <ul>
-                    <li>Please report errors to the Developer email: hola@dinozign.com subject: "Suggestion Sistema Amigos loan"</li>
+                    <li>Please report errors to the Developer email: hola@dinozign.com subject: "Suggestion Sistema Negocios Hispanos"</li>
                     <li>Los errores se repararan lo mas pronto posible</li>
                     <li>sorry for the inconvenience</li>
                   </ul>

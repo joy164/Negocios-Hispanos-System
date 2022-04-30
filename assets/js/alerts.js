@@ -20,6 +20,18 @@ function ErrorInicioContrato(){
 
     })
 }
+
+function ErrorInicioContrato2(){
+  Swal.fire({
+      title: 'Registered References!',
+      text: 'You can\'t register your references if you already registered them',
+      icon: 'info',
+      footer: 'please contact to Amigos Prestamos to update or modify',
+      showConfirmButton: false,
+      timer: 6000
+
+    })
+}
 //alertas de registro de Dealer
 function AlertaEliminarItem(idItem, page){
   var pagina = page + "?id=";

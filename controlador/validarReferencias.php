@@ -6,16 +6,20 @@ if( !var_dump(empty($_POST['correoF']))){
 
         $usuario = $conn->real_escape_string($_POST['correoF']);
 
-        $nueva_consulta = $conn->prepare("SELECT * FROM prestarios WHERE id_prestario = ?");
+        $nueva_consulta = $conn->prepare("SELECT * FROM prestarios WHERE numContrato = ?");
 
         if($nueva_consulta){
             
             $nueva_consulta->bind_param('s', $usuario);
             $nueva_consulta->execute();
             $resultado = $nueva_consulta->get_result();
-
+            $datosPrestario = $resultado->fetch_assoc();
             if($resultado->num_rows == 1){
-                header('location: ../regReferencias?id_contrato='.$usuario);
+                if($datosPrestario['refRegistrada'] == 0){
+                    header('location: ../regReferencias?numContrato='.$usuario);
+                }else{
+                    header('location: ../validar?vis=True');    
+                }
                 
             }else{
                 $conn->close();

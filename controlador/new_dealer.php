@@ -5,7 +5,7 @@
     include '../modelo/conexion.php';
 
     $nombre = $_POST["nombre"];
-    $apellido = $_POST["apellido"];
+    $apellido = ' ';
     $dir = $_POST["direccion"];
     $correo= $_POST["corr"];
     $pas = $_POST["pass"];

@@ -319,12 +319,20 @@
                             <a href="detalleCoBorrower?id_prestario=<?=$datosPrestario["id_prestario"]?>" class="btn btn-sm btn-secondary">Co-Borrower Details<i class="bi bi-person-fill"></i></a>
                             <a href="detalleCoSigner?id_prestario=<?=$datosPrestario["id_prestario"]?>" class="btn btn-sm btn-secondary">Co-Signer Details<i class="bi bi-person-fill"></i></i></a>
                             <a href="regPrestamos" class="btn btn-sm btn-primary"> <i class="lni lni-angle-double-left"></i> Return</a>
-                          <?php else:?>                          
-                            <a href="controlador/gen_Contrato.php?id_prestario=<?=$datosPrestario["id_prestario"]?>" class="btn btn-sm btn-danger me-2">See Contract <i class="bi bi-file-earmark-pdf-fill"></i></a>
-                            <a href="detalleVehicle?id_prestario=<?=$datosPrestario['id_prestario']?>" class="btn btn-sm btn-secondary">Vehicle Description<i class="lni lni-car"></i></a>
-                            <a href="detalleCoBorrower?id_prestario=<?=$datosPrestario["id_prestario"]?>" class="btn btn-sm btn-secondary">Co-Borrower Details<i class="bi bi-person-fill"></i></a>
-                            <a href="detalleCoSigner?id_prestario=<?=$datosPrestario["id_prestario"]?>" class="btn btn-sm btn-secondary">Co-Signer Details<i class="bi bi-person-fill"></i></a>
-                            <a href="regPrestamos" class="btn btn-sm btn-primary"> <i class="lni lni-angle-double-left"></i> Return</a>
+                          <?php else:?>     
+                            <?php if($datosPrestario["contGenerado"] == 0):?>
+                              <a href="controlador/gen_Contrato.php?id_prestario=<?=$datosPrestario["id_prestario"]?>" class="btn btn-sm btn-danger me-2">Generate Contract <i class="bi bi-file-earmark-pdf-fill"></i></a>
+                              <a href="detalleVehicle?id_prestario=<?=$datosPrestario['id_prestario']?>" class="btn btn-sm btn-secondary">Vehicle Description<i class="lni lni-car"></i></a>
+                              <a href="detalleCoBorrower?id_prestario=<?=$datosPrestario["id_prestario"]?>" class="btn btn-sm btn-secondary">Co-Borrower Details<i class="bi bi-person-fill"></i></a>
+                              <a href="detalleCoSigner?id_prestario=<?=$datosPrestario["id_prestario"]?>" class="btn btn-sm btn-secondary">Co-Signer Details<i class="bi bi-person-fill"></i></a>
+                              <a href="regPrestamos" class="btn btn-sm btn-primary"> <i class="lni lni-angle-double-left"></i> Return</a>
+                            <?php else:?>
+                              <a href="verContrato.php?id_prestario=<?=$datosPrestario["id_prestario"]?>" class="btn btn-sm btn-danger me-2">See Contract <i class="bi bi-file-earmark-pdf-fill"></i></a>
+                              <a href="detalleVehicle?id_prestario=<?=$datosPrestario['id_prestario']?>" class="btn btn-sm btn-secondary">Vehicle Description<i class="lni lni-car"></i></a>
+                              <a href="detalleCoBorrower?id_prestario=<?=$datosPrestario["id_prestario"]?>" class="btn btn-sm btn-secondary">Co-Borrower Details<i class="bi bi-person-fill"></i></a>
+                              <a href="detalleCoSigner?id_prestario=<?=$datosPrestario["id_prestario"]?>" class="btn btn-sm btn-secondary">Co-Signer Details<i class="bi bi-person-fill"></i></a>
+                              <a href="regPrestamos" class="btn btn-sm btn-primary"> <i class="lni lni-angle-double-left"></i> Return</a>
+                            <?php endif;?>                  
                           <?php endif;?>                          
                       </div>
                       <br>

@@ -420,7 +420,7 @@
                     <input name="empleo" type="text" class="form-control" >
                   </div>
                   <div class="col-6">
-                    <label class="form-label">* address</label>
+                    <label class="form-label">* Address</label>
                     <input name="eDireccion" type="text" class="form-control" required>
                   </div>
                   <div class="col-4">
@@ -497,17 +497,20 @@
                     <input name="eExt" type="text" class="form-control">
                   </div>
                   <hr/>
-                  <div class="input-group mb-3 col-3"> <span class="input-group-text" id="basic-addon1">$</span>
-									  <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-								  </div>
-                  <div class="col-3">
-                    <label class="form-label">* Amount</label>
-                    <input name="monto" type="text" class="form-control" Required>
-                  </div>
-                  <div class="col-3">
-                    <label class="form-label">* Anual Percentage Rate</label>
-                    <input name="interes" type="text" class="form-control" >
-                  </div>
+                  <div class="col-md-3">
+										<label for="validationCustomUsername" class="form-label">* Amount</label>
+										<div class="input-group has-validation"> <span class="input-group-text" id="inputGroupPrepend">$</span>
+											<input name ="monto" type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+										</div>
+									</div>
+
+                  <div class="col-md-3">
+										<label for="validationCustomUsername" class="form-label">* Anual Percentage Rates</label>
+										<div class="input-group has-validation"> 
+											<input name ="interes" type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                      <span class="input-group-text" id="inputGroupPrepend">%</span>
+										</div>
+									</div>
                   <div class="col-3">
                     <label class="form-label">* Period </label>
                     <select name="periodo" class="form-select mb-3" aria-label=".form-select-sm example" required>
@@ -525,14 +528,18 @@
 									    <option value="2">Registration</option>
 								    </select>
                   </div>
-                  <div class="col-6">
-                    <label class="form-label">* Payments</label>
-                    <input name="pagoPeriodo" type="text" class="form-control" Required>
-                  </div>
-                  <div class="col-6">
-                    <label class="form-label">* Final Payment</label>
-                    <input name="pagoFinal" type="text" class="form-control" Required>
-                  </div>
+                  <div class="col-md-6">
+										<label for="validationCustomUsername" class="form-label">* Payments</label>
+										<div class="input-group has-validation"> <span class="input-group-text" id="inputGroupPrepend">$</span>
+											<input name ="pagoPeriodo" type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+										</div>
+									</div>
+                  <div class="col-md-6">
+										<label for="validationCustomUsername" class="form-label">* Final Payment</label>
+										<div class="input-group has-validation"> <span class="input-group-text" id="inputGroupPrepend">$</span>
+											<input name ="pagoFinal" type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+										</div>
+									</div>
                   <hr/>
                   <label class="form-label">* Required Field</label>
                   <div class="col-12">
@@ -580,6 +587,7 @@
 	
   <!--app-->
   <script src="assets/js/app.js"></script>
+  <script src="assets/js/reenvio.js"></script>
   
 
 </body>

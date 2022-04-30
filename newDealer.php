@@ -306,12 +306,8 @@
                 <form class="row g-3" method="post" action="controlador/new_dealer" >
                 <h6 class="mb-0 text-uppercase">Name</h6>
                   <div class="col-6">
-                    <label class="form-label">* Name</label>
+                    <label class="form-label">* Company Name</label>
                     <input name="nombre" type="text" class="form-control" required>
-                  </div>
-                  <div class="col-6">
-                    <label class="form-label">* LastName</label>
-                    <input name="apellido" type="text" class="form-control" required>
                   </div>
                   <hr/>
                   <h6 class="mb-0 text-uppercase">Contact</h6>
@@ -378,6 +374,7 @@
 	
   <!--app-->
   <script src="assets/js/app.js"></script>
+  <script src="assets/js/reenvio.js"></script>
   
 
 </body>

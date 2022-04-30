@@ -34,6 +34,12 @@
     <?php endif;?>
   <?php endif;?>
 
+  <?php if(isset($_REQUEST['vis'])):?>
+    <?php if($_REQUEST['vis'] == True):?>
+      <script>ErrorInicioContrato2();</script> 
+    <?php endif;?>
+  <?php endif;?>
+
   <?php
       if(isset($_REQUEST['Reg'])){
         $res = $_REQUEST['Reg'];
@@ -67,7 +73,7 @@
                           <div class="col-12">
                             <label for="inputEmailAddress" class="form-label">Enter number of contract to continue</label>
                             <div class="ms-auto position-relative">
-                              <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-envelope-fill"></i></div>
+                              <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="lni lni-magnifier"></i></div>
                               <input name="correoF" type="text" class="form-control radius-30 ps-5" id="inputEmailAddress" placeholder="contract" Required>
                             </div>
                           </div>

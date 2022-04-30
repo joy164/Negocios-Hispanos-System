@@ -34,6 +34,9 @@ $consulta->execute();
 $resultado = $consulta->get_result();
 $datosAuto = $resultado->fetch_assoc();
 
+$consulta = $conn->prepare("UPDATE prestarios SET contGenerado = 1");
+$consulta->execute();
+
 $fechaactual = date('Y-m-d');
 
 $fechainicio = strtotime ('+ 1 days' , strtotime($fechaactual)); 
@@ -88,7 +91,7 @@ $pdf = new pdf();
 $pdf->AliasNbPages();
 //PAGINA 1////////////////////////////////////////////////////////////////////////
 $pdf->AddPage('P', 'Letter');
-$pdf->SetTitle('CONTRATO #'. $datosPrestario['id_prestario']);
+$pdf->SetTitle('CONTRATO #'. $datosPrestario['numContrato']);
 $pdf->SetAuthor('Amigos Prestamos');
 $pdf->SetCreator('Dinozing');
 
@@ -121,7 +124,7 @@ Phoenix AZ 85033
 //DATOS DE PRESTARIO 
 $pdf->SetFont('Arial','', $fontSize);    
 $pdf->setY(40);$pdf->setX(150);
-$pdf->MultiCell(55, 4,"Loan Number:".$datosPrestario['id_prestario']."
+$pdf->MultiCell(55, 4,"Loan Number:".$datosPrestario['numContrato']."
 Date of Loan:".$fechaactual."
 maturity Date:".$fechafinal."
 Salesperson:". $_SESSION['name']."
@@ -672,10 +675,10 @@ $pdf->cell(0, $textypos, $aux.'FOR INFORMATION CONTACT THE DEPARTAMENT OF FINANC
 
 //FIN DE DOCUMENTO PDF//////////////////////////////////////////////////////////////
 $dominio = ".pdf";
-$nombre = "contrato".$datosPrestario['id_prestario'];
+$nombre = "contrato".$datosPrestario['numContrato'];
 $final = $nombre . $dominio;
 $pdf->output("F", "../contratos/".$final);
-enviarContrato('Contrato Generado', 'se ha generado un nuevo contrato', "../contratos/".$final);
+enviarContrato('Contract #'.$datosPrestario['numContrato'], 'A new contract has been generated with the number: '.$datosPrestario['numContrato'], "../contratos/", $final);
 
 //$pdf->output();
 header('location: ../verContrato.php?id_prestario='.$id_contrato);  

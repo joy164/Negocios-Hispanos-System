@@ -314,7 +314,7 @@
             <div class="card shadow-sm radius-10 border-0 mb-3">
               <div class="card-body">
                   <?php 
-                      $nom = "contrato".$datosPrestario['id_prestario'];
+                      $nom = "contrato".$datosPrestario['numContrato'];
                       $dom = ".pdf";
                       $final = $nom . $dom;
                   ?>

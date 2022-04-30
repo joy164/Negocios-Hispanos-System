@@ -68,30 +68,3 @@
     }
 
 ?>
-
-<!--
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Correo SMPT</title>
-</head>
-<body>
-    <center>
-        <form action=""  method="POST">
-            <p>correo 1:</p>
-            <input type="email" name="correo1"><br>
-            <p>correo 2:</p>
-            <input type="email" name="correo2"><br>
-            <p>asunto:</p>
-            <input type="subject" name="subject"><br>
-            <p>mensaje: </p>
-            <textarea name="mensaje"></textarea><br><br>
-            <input type="submit" name="submit">
-        </form>
-    </center>
-</body>
-</html>
--->
