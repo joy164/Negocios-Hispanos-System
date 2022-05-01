@@ -7,7 +7,6 @@
     $conn->set_charset('utf8');
 
     //numero de contrato 
-    
     $contrato = $conn->real_escape_string($_REQUEST['id_contrato']);
     //referencia 1 
     $name1 = $conn->real_escape_string($_POST['name1']);
@@ -102,12 +101,12 @@
                         }
 
                     }else{
-                        header('location: ../validar?Reg=False');
+                        header('location: ../validar?Reg=False&msg='.$consulta->error);
                     }   
 
             }else{
                 $conn->error;
-                header('location: ../validar?Reg=False');    
+                header('location: ../validar?Reg=False&msg='.$consulta->error);    
             }
         }
         $conn->error;

@@ -16,6 +16,10 @@
     $resultado = $consulta->get_result();
     $datosPrestario = $resultado->fetch_assoc();
 
+    if($datosPrestario['refRegistrada'] == 1){
+      header("location: validar?vis=True");
+  }
+
 ?>
 <!doctype html>
 <html lang="en" class="semi-dark">
